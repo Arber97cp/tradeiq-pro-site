@@ -74,6 +74,18 @@
     }
     .button:hover { transform: translateY(-1px); background: rgba(255,255,255,.13); border-color: rgba(255,255,255,.3); }
     .button.primary { background: linear-gradient(135deg, var(--green), var(--blue)); border: 0; color: #04111e; }
+    .live-strip {
+      margin: 0 0 28px;
+      border: 1px solid rgba(248,193,74,.55);
+      background: linear-gradient(135deg, rgba(248,193,74,.2), rgba(32,201,151,.14));
+      color: #fff6d7;
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-weight: 850;
+      line-height: 1.45;
+      box-shadow: 0 18px 45px rgba(248,193,74,.12);
+    }
+    .live-strip span { color: var(--green); }
     main { padding: 72px 0 56px; }
     .hero { display: grid; grid-template-columns: minmax(0, 1.04fr) minmax(320px, .96fr); gap: 34px; align-items: center; }
     .eyebrow { color: var(--green); font-weight: 850; text-transform: uppercase; font-size: 13px; letter-spacing: .08em; }
@@ -151,11 +163,12 @@
   </header>
 
   <main id="top" class="wrap">
+    <div class="live-strip"><span>NEU LIVE:</span> Diese GitHub-Seite wurde gerade sichtbar aktualisiert - ohne Manus-Credits, mit Referral-Schutz und ohne private Skripte.</div>
     <div class="hero">
       <div>
         <div class="eyebrow">Unabhaengige Live-Seite aktiv</div>
-        <h1>TradeIQ Pro</h1>
-        <p class="lead" id="heroLead">Sicherer Ausweich-Eingang ohne Manus-Sync: Besucher kommen mit Referral-Code zur App, waehrend private Skripte, Premium-Dateien und Dashboard-Daten nicht oeffentlich ausgeliefert werden.</p>
+        <h1>TradeIQ Pro ist live</h1>
+        <p class="lead" id="heroLead">Das ist jetzt die sichtbare Ausweich-Live-Seite: Referral bleibt aktiv, Manus-Credits werden nicht gebraucht und private Skripte, Premium-Dateien sowie Dashboard-Daten bleiben aus der oeffentlichen Seite raus.</p>
         <div class="hero-actions">
           <a class="button primary" id="heroAppLink" data-app-link href="https://tradeiqpro-qwm3xmck.manus.space/?ref=TIQTEST">App mit Referral oeffnen</a>
           <a class="button" href="#sicherheit">Sicherheit ansehen</a>
@@ -262,7 +275,7 @@
       visitorHint.textContent = visitCount > 1 ? 'Willkommen zurueck - App direkt oeffnen.' : 'Oeffentliche Seite ohne interne Zahlen.';
     }
     if (heroLead && visitCount > 1) {
-      heroLead.textContent = 'Willkommen zurueck. Dein Referral ist gespeichert; der oeffentliche Eingang bleibt von privaten Skripten und Dashboard-Daten getrennt.';
+      heroLead.textContent = 'Willkommen zurueck. Dein Referral ist gespeichert; diese sichtbare Live-Seite bleibt von privaten Skripten und Dashboard-Daten getrennt.';
     }
     if (stickyText && isMobile) {
       stickyText.textContent = 'Mobil erkannt: App-Start bleibt unten erreichbar.';
