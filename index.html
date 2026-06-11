@@ -219,6 +219,44 @@
       overflow-wrap: anywhere;
       line-height: 1.55;
     }
+    .risk-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+    .risk-stage {
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.2);
+      border-radius: 8px;
+      padding: 14px;
+      min-height: 134px;
+    }
+    .risk-stage strong { display: block; font-size: 28px; margin: 6px 0; }
+    .risk-stage span { display: block; color: var(--muted); line-height: 1.45; font-size: 13px; }
+    .risk-stage.good { border-color: rgba(32,201,151,.42); background: rgba(32,201,151,.08); }
+    .risk-stage.warn { border-color: rgba(248,193,74,.48); background: rgba(248,193,74,.08); }
+    .risk-stage.stop { border-color: rgba(248,113,113,.46); background: rgba(248,113,113,.08); }
+    .sync-console {
+      border: 1px solid rgba(56,189,248,.28);
+      background: rgba(56,189,248,.07);
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 12px;
+    }
+    .sync-row {
+      display: grid;
+      grid-template-columns: 138px minmax(0, 1fr);
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .sync-row:last-child { border-bottom: 0; }
+    .sync-row strong { color: var(--text); overflow-wrap: anywhere; }
+    .local-save-note {
+      margin-top: 10px;
+      color: rgba(184,195,214,.84);
+      font-size: 12px;
+      line-height: 1.5;
+    }
     .tool-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
     .status-list { display: grid; gap: 10px; }
     .status-item { display: flex; align-items: flex-start; gap: 10px; color: var(--muted); line-height: 1.45; }
@@ -275,6 +313,8 @@
       main { padding-top: 48px; }
       .hero { grid-template-columns: 1fr; }
       .cards, .proof, .tools-grid, .quick-grid, .mini-grid, .lot-results { grid-template-columns: 1fr; }
+      .risk-grid { grid-template-columns: 1fr; }
+      .sync-row { grid-template-columns: 1fr; gap: 3px; }
       .field-row { grid-template-columns: 1fr; }
       .section-title { display: block; }
       .section-title p { margin-top: 10px; }
@@ -293,6 +333,7 @@
       <nav aria-label="Hauptnavigation">
         <a href="#funktionen">Funktionen</a>
         <a href="#mt5">MT5</a>
+        <a href="#risk">Risk</a>
         <a href="#privat">Privat</a>
         <a href="#sicherheit">Sicherheit</a>
         <a href="#live">Live</a>
@@ -435,6 +476,55 @@
           <div class="lot-card"><span>ZinsRadar</span><strong>54.9</strong><span>Neutral / 70%</span></div>
         </div>
       </div>
+
+      <div class="tools-grid" id="risk" style="margin-top:16px">
+        <article class="tool-panel">
+          <h3>3-Stufen Risk Guard</h3>
+          <p>Dieses Regelwerk ist jetzt auch auf der GitHub-Seite sichtbar: normal handeln, bei Gefahr automatisch reduzieren, bei harter Grenze stoppen. Die echten Orders bleiben im geschuetzten MT5-System.</p>
+          <div class="risk-grid">
+            <div class="risk-stage good"><span>Stufe 1</span><strong>80%</strong><span>Warnzone: System bleibt aktiv, Risiko wird kontrolliert.</span></div>
+            <div class="risk-stage warn"><span>Stufe 2</span><strong>80%</strong><span>Schutzmodus: Lots werden reduziert, neue Trades strenger bewertet.</span></div>
+            <div class="risk-stage stop"><span>Stufe 3</span><strong>10%</strong><span>Hard Stop: kein weiterer Handel, wenn die Grenze erreicht ist.</span></div>
+          </div>
+          <div class="lot-results" style="margin-top:10px">
+            <div class="lot-card"><span>Aktiv</span><strong>1%</strong><span>Risiko pro Trade</span></div>
+            <div class="lot-card"><span>Max-DD</span><strong>5%</strong><span>taegliche Grenze</span></div>
+            <div class="lot-card"><span>Weekly</span><strong>10%</strong><span>Wochen-Drawdown</span></div>
+            <div class="lot-card highlight"><span>Modus</span><strong id="riskMode">AKTIV</strong><span id="riskModeText">Guard bereit</span></div>
+          </div>
+        </article>
+
+        <article class="tool-panel">
+          <h3>Vantage / Meta 5 Sync</h3>
+          <p>Die GitHub-Seite speichert deine sichtbare Konfiguration nur lokal in deinem Browser. API-Schluessel gehoeren nicht in GitHub-Code.</p>
+          <div class="mini-grid">
+            <div class="mini-field">
+              <label for="apiBaseInput">App/API Basis</label>
+              <input id="apiBaseInput" type="url" value="https://tradeiqpro-qwm3xmck.manus.space" />
+            </div>
+            <div class="mini-field">
+              <label for="brokerInput">Broker Server</label>
+              <input id="brokerInput" type="text" value="VantageMarkets-Live 6" />
+            </div>
+            <div class="mini-field">
+              <label for="accountAliasInput">Konto Alias</label>
+              <input id="accountAliasInput" type="text" value="Vantage 2887****" />
+            </div>
+          </div>
+          <div class="sync-console" aria-label="MT5 Sync Status">
+            <div class="sync-row"><span>Public API</span><strong id="syncPublicApi">wird vorbereitet...</strong></div>
+            <div class="sync-row"><span>MT5 Status</span><strong id="syncStatusApi">wird vorbereitet...</strong></div>
+            <div class="sync-row"><span>Sync Webhook</span><strong id="syncWebhook">wird vorbereitet...</strong></div>
+            <div class="sync-row"><span>Letzter Stand</span><strong id="syncLocalState">Noch nicht gespeichert.</strong></div>
+          </div>
+          <div class="tool-actions">
+            <button class="button primary" id="saveMt5ConfigButton" type="button">Konfig speichern</button>
+            <button class="button" id="markBotStartButton" type="button">Bot-Start markieren</button>
+            <button class="button" id="markBacktestButton" type="button">Backtest markieren</button>
+          </div>
+          <p class="local-save-note">GitHub Pages kann keinen echten MT5-Trade ausfuehren. Es zeigt und speichert die Einrichtung; der echte Sync laeuft ueber die Server-App.</p>
+        </article>
+      </div>
     </section>
 
     <section id="privat">
@@ -501,6 +591,15 @@
       const cleaned = String(value || '').trim().replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 32);
       return cleaned || 'TIQTEST';
     };
+    const defaultAppBase = 'https://tradeiqpro-qwm3xmck.manus.space/';
+    const normalizeAppBase = value => {
+      try {
+        const parsed = new URL(String(value || defaultAppBase).trim());
+        return parsed.origin + '/';
+      } catch {
+        return defaultAppBase;
+      }
+    };
 
     let ref = normalizeRef(params.get('ref') || localStorage.getItem('tiq_ref') || 'TIQTEST');
     localStorage.setItem('tiq_ref', ref);
@@ -508,7 +607,13 @@
     const visitCount = Number(localStorage.getItem('tiq_visit_count') || '0') + 1;
     localStorage.setItem('tiq_visit_count', String(visitCount));
 
-    const appBase = 'https://tradeiqpro-qwm3xmck.manus.space/';
+    let appBase = normalizeAppBase(localStorage.getItem('tiq_api_base') || defaultAppBase);
+    const readMt5Config = () => ({
+      apiBase: appBase,
+      brokerServer: localStorage.getItem('tiq_broker_server') || 'VantageMarkets-Live 6',
+      accountAlias: localStorage.getItem('tiq_account_alias') || 'Vantage 2887****',
+      localOnly: true
+    });
     const buildAppUrl = (path = '/') => {
       const target = new URL(path, appBase);
       target.searchParams.set('ref', ref);
@@ -534,6 +639,22 @@
       appUrl: buildAppUrl('/'),
       mt5Url: buildAppUrl('/mt5'),
       canReceiveMt5Sync: false,
+      mt5Config: readMt5Config(),
+      riskGuard: {
+        riskPerTradePercent: 1,
+        maxDailyDrawdownPercent: 5,
+        maxWeeklyDrawdownPercent: 10,
+        stage1WarningPercent: 80,
+        stage2ProtectPercent: 80,
+        stage3HardStopPercent: 10
+      },
+      lotModel: {
+        symbol: 'NAS100',
+        zinsRadarIndex: 54.9,
+        zinsRadarLabel: 'Neutral',
+        zinsRadarLotFactor: 0.7,
+        drawdownGuardFactor: 1
+      },
       endpoints: {
         publicSiteApi: buildPublicApiUrl(),
         mt5SyncWebhook: new URL('/api/mt5/sync', appBase).toString(),
@@ -569,12 +690,28 @@
     const zinsLots = document.getElementById('zinsLots');
     const endLots = document.getElementById('endLots');
     const riskAmount = document.getElementById('riskAmount');
+    const apiBaseInput = document.getElementById('apiBaseInput');
+    const brokerInput = document.getElementById('brokerInput');
+    const accountAliasInput = document.getElementById('accountAliasInput');
+    const syncPublicApi = document.getElementById('syncPublicApi');
+    const syncStatusApi = document.getElementById('syncStatusApi');
+    const syncWebhook = document.getElementById('syncWebhook');
+    const syncLocalState = document.getElementById('syncLocalState');
+    const saveMt5ConfigButton = document.getElementById('saveMt5ConfigButton');
+    const markBotStartButton = document.getElementById('markBotStartButton');
+    const markBacktestButton = document.getElementById('markBacktestButton');
+    const riskMode = document.getElementById('riskMode');
+    const riskModeText = document.getElementById('riskModeText');
     const visitorHint = document.getElementById('visitorHint');
     const heroLead = document.getElementById('heroLead');
     const stickyText = document.getElementById('stickyText');
     const isMobile = window.matchMedia('(max-width: 760px)').matches;
     const securityCheckResult = document.getElementById('securityCheckResult');
     const runSecurityCheck = document.getElementById('runSecurityCheck');
+
+    if (apiBaseInput) apiBaseInput.value = appBase.replace(/\/$/, '');
+    if (brokerInput) brokerInput.value = readMt5Config().brokerServer;
+    if (accountAliasInput) accountAliasInput.value = readMt5Config().accountAlias;
 
     const updateReferralUi = () => {
       const appUrl = buildAppUrl('/');
@@ -595,6 +732,16 @@
       }
     };
 
+    const updateMt5OpsUi = () => {
+      const payload = buildPublicApiPayload();
+      const state = localStorage.getItem('tiq_sync_state') || 'Bereit. Noch kein Bot- oder Backtest-Status lokal markiert.';
+
+      if (syncPublicApi) syncPublicApi.textContent = payload.endpoints.publicSiteApi;
+      if (syncStatusApi) syncStatusApi.textContent = payload.endpoints.mt5StatusApi;
+      if (syncWebhook) syncWebhook.textContent = payload.endpoints.mt5SyncWebhook;
+      if (syncLocalState) syncLocalState.textContent = state;
+    };
+
     const updateLotCalculator = () => {
       const account = Math.max(0, Number(String(lotAccount && lotAccount.value || '10000').replace(',', '.')) || 0);
       const riskPct = Math.max(0, Number(String(lotRisk && lotRisk.value || '1').replace(',', '.')) || 0);
@@ -605,11 +752,19 @@
       const base = risk / stopPoints;
       const zins = base * zinsFactor;
       const finalLots = base * zinsFactor * drawdownGuard;
+      const nextRiskMode = riskPct <= 1 ? 'AKTIV' : riskPct <= 2 ? 'SCHUTZ' : 'STOP';
+      const nextRiskText = riskPct <= 1
+        ? '1% Regel eingehalten'
+        : riskPct <= 2
+          ? 'Risiko erhoeht - pruefen'
+          : 'ueber Limit - nicht handeln';
 
       if (baseLots) baseLots.textContent = base.toFixed(2);
       if (zinsLots) zinsLots.textContent = zins.toFixed(2);
       if (endLots) endLots.textContent = finalLots.toFixed(2);
       if (riskAmount) riskAmount.textContent = risk.toFixed(2) + ' Risiko';
+      if (riskMode) riskMode.textContent = nextRiskMode;
+      if (riskModeText) riskModeText.textContent = nextRiskText;
 
       document.querySelectorAll('[data-stop]').forEach(button => {
         button.classList.toggle('active', lotStop && button.dataset.stop === lotStop.value);
@@ -617,6 +772,20 @@
       document.querySelectorAll('[data-risk]').forEach(button => {
         button.classList.toggle('active', lotRisk && button.dataset.risk === lotRisk.value);
       });
+    };
+
+    const saveMt5Config = () => {
+      appBase = normalizeAppBase(apiBaseInput && apiBaseInput.value ? apiBaseInput.value : defaultAppBase);
+      const brokerServer = brokerInput && brokerInput.value ? brokerInput.value.trim().slice(0, 80) : 'VantageMarkets-Live 6';
+      const accountAlias = accountAliasInput && accountAliasInput.value ? accountAliasInput.value.trim().slice(0, 80) : 'Vantage 2887****';
+      localStorage.setItem('tiq_api_base', appBase);
+      localStorage.setItem('tiq_broker_server', brokerServer);
+      localStorage.setItem('tiq_account_alias', accountAlias);
+      localStorage.setItem('tiq_sync_state', 'Konfig gespeichert um ' + new Date().toLocaleString('de-DE') + '. Broker: ' + brokerServer + ', Konto: ' + accountAlias + '.');
+      if (apiBaseInput) apiBaseInput.value = appBase.replace(/\/$/, '');
+      updateReferralUi();
+      updateMt5OpsUi();
+      showToast('MT5-Konfig lokal gespeichert.');
     };
 
     for (const link of document.querySelectorAll('[data-app-link]')) {
@@ -690,6 +859,31 @@
       });
     }
 
+    if (saveMt5ConfigButton) {
+      saveMt5ConfigButton.addEventListener('click', saveMt5Config);
+    }
+
+    if (apiBaseInput) {
+      apiBaseInput.addEventListener('change', saveMt5Config);
+    }
+
+    if (markBotStartButton) {
+      markBotStartButton.addEventListener('click', () => {
+        localStorage.setItem('tiq_sync_state', 'Bot-Start auf GitHub-Seite markiert um ' + new Date().toLocaleString('de-DE') + '. Echten Start in der MT5-Server-App ausfuehren.');
+        updateMt5OpsUi();
+        window.open(buildAppUrl('/mt5'), '_blank', 'noopener');
+        showToast('MT5-App geoeffnet.');
+      });
+    }
+
+    if (markBacktestButton) {
+      markBacktestButton.addEventListener('click', () => {
+        localStorage.setItem('tiq_sync_state', 'Kombi-Backtest lokal markiert um ' + new Date().toLocaleString('de-DE') + '. Zwei EAs auf einem Fenster: vorbereitet fuer die MT5-Server-App.');
+        updateMt5OpsUi();
+        showToast('Backtest-Status markiert.');
+      });
+    }
+
     [lotAccount, lotRisk, lotStop].forEach(input => {
       if (!input) return;
       input.addEventListener('input', updateLotCalculator);
@@ -721,6 +915,7 @@
 
     updateReferralUi();
     updateLotCalculator();
+    updateMt5OpsUi();
 
     if (visitorHint) {
       visitorHint.textContent = visitCount > 1 ? 'Willkommen zurueck - App direkt oeffnen.' : 'Oeffentliche Seite ohne interne Zahlen.';
