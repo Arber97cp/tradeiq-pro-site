@@ -8,4 +8,4 @@ Pages URL:
 
 https://arber97cp.github.io/tradeiq-pro-site/?ref=TIQTEST
 
-Deployment refreshed after public visibility confirmation.
+Deployment refreshed after enabling GitHub Actions as the Pages source.
