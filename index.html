@@ -279,6 +279,30 @@
     }
     .quick-card strong { display: block; margin-bottom: 8px; font-size: 18px; }
     .quick-card span { display: block; color: var(--muted); line-height: 1.5; font-size: 14px; }
+    .command-grid { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: 16px; align-items: stretch; }
+    .command-list { display: grid; gap: 10px; }
+    .command-row {
+      display: grid;
+      grid-template-columns: 128px minmax(0, 1fr);
+      gap: 10px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.2);
+      border-radius: 8px;
+      padding: 12px;
+      align-items: start;
+    }
+    .command-row span { color: var(--muted); font-size: 12px; font-weight: 850; text-transform: uppercase; letter-spacing: .06em; }
+    .command-row strong { color: var(--text); font-size: 14px; line-height: 1.45; overflow-wrap: anywhere; }
+    .launch-steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+    .launch-step {
+      border: 1px solid rgba(32,201,151,.22);
+      background: rgba(32,201,151,.07);
+      border-radius: 8px;
+      padding: 14px;
+      min-height: 116px;
+    }
+    .launch-step strong { display: block; margin-bottom: 7px; }
+    .launch-step span { color: var(--muted); font-size: 13px; line-height: 1.45; }
     .toast {
       position: fixed;
       right: 18px;
@@ -313,6 +337,8 @@
       main { padding-top: 48px; }
       .hero { grid-template-columns: 1fr; }
       .cards, .proof, .tools-grid, .quick-grid, .mini-grid, .lot-results { grid-template-columns: 1fr; }
+      .command-grid, .launch-steps { grid-template-columns: 1fr; }
+      .command-row { grid-template-columns: 1fr; gap: 4px; }
       .risk-grid { grid-template-columns: 1fr; }
       .sync-row { grid-template-columns: 1fr; gap: 3px; }
       .field-row { grid-template-columns: 1fr; }
@@ -331,6 +357,7 @@
         <span>TradeIQ Pro</span>
       </a>
       <nav aria-label="Hauptnavigation">
+        <a href="#zentrale">Zentrale</a>
         <a href="#funktionen">Funktionen</a>
         <a href="#mt5">MT5</a>
         <a href="#risk">Risk</a>
@@ -367,6 +394,44 @@
         </div>
       </aside>
     </div>
+
+    <section id="zentrale">
+      <div class="section-title">
+        <h2>Live-Zentrale</h2>
+        <p>Hier sind alle wichtigen Ziele an einem Ort: erste Domain, Referral, MT5, Public API und die sichere Weiterleitung in die Haupt-App.</p>
+      </div>
+      <div class="command-grid">
+        <article class="tool-panel">
+          <h3>Aktive Ziele</h3>
+          <p>Diese Links werden aus deinem Referral-Code gebaut und bleiben auf die erste Domain ausgerichtet.</p>
+          <div class="command-list">
+            <div class="command-row"><span>Hauptdomain</span><strong id="primaryDomainBox">wird vorbereitet...</strong></div>
+            <div class="command-row"><span>App-Link</span><strong id="launchAppBox">wird vorbereitet...</strong></div>
+            <div class="command-row"><span>MT5-Link</span><strong id="launchMt5Box">wird vorbereitet...</strong></div>
+            <div class="command-row"><span>API-Link</span><strong id="launchApiBox">wird vorbereitet...</strong></div>
+          </div>
+          <div class="tool-actions">
+            <button class="button primary" id="copyLaunchLinksButton" type="button">Alle Links kopieren</button>
+            <a class="button" id="openPrimaryDomainLink" data-app-link href="https://3000-i6iprv7nz2cqeep7t23ny-ab6b65e0.us2.manus.computer/?ref=TIQTEST">Hauptdomain oeffnen</a>
+          </div>
+        </article>
+
+        <article class="tool-panel">
+          <h3>Start-Checkliste</h3>
+          <p>Die oeffentliche Seite bleibt schlank, leitet sauber weiter und zeigt keine privaten Tokens.</p>
+          <div class="launch-steps">
+            <div class="launch-step"><strong>Domain fixiert</strong><span>Alle CTAs zeigen auf die erste Manus-Domain.</span></div>
+            <div class="launch-step"><strong>Referral aktiv</strong><span>Der Code bleibt in App-, MT5- und API-Link erhalten.</span></div>
+            <div class="launch-step"><strong>MT5 vorbereitet</strong><span>Dashboard, Vantage-Status und Sync-Endpunkt sind sichtbar verlinkt.</span></div>
+            <div class="launch-step"><strong>Privat getrennt</strong><span>API-Schluessel, Premium-Dateien und interne Zahlen bleiben draussen.</span></div>
+          </div>
+          <div class="api-preview" id="launchReport">{}</div>
+          <div class="tool-actions">
+            <button class="button primary" id="refreshLaunchReportButton" type="button">Zentrale aktualisieren</button>
+          </div>
+        </article>
+      </div>
+    </section>
 
     <section id="funktionen">
       <div class="section-title">
@@ -679,6 +744,13 @@
     const copyReferralButton = document.getElementById('copyReferralButton');
     const shareReferralButton = document.getElementById('shareReferralButton');
     const mt5Link = document.getElementById('mt5Link');
+    const primaryDomainBox = document.getElementById('primaryDomainBox');
+    const launchAppBox = document.getElementById('launchAppBox');
+    const launchMt5Box = document.getElementById('launchMt5Box');
+    const launchApiBox = document.getElementById('launchApiBox');
+    const launchReport = document.getElementById('launchReport');
+    const copyLaunchLinksButton = document.getElementById('copyLaunchLinksButton');
+    const refreshLaunchReportButton = document.getElementById('refreshLaunchReportButton');
     const publicApiEndpoint = document.getElementById('publicApiEndpoint');
     const publicApiJson = document.getElementById('publicApiJson');
     const copyApiButton = document.getElementById('copyApiButton');
@@ -730,6 +802,7 @@
       for (const link of document.querySelectorAll('[data-app-link]')) {
         link.href = appUrl;
       }
+      if (typeof updateLaunchCenter === 'function') updateLaunchCenter();
     };
 
     const updateMt5OpsUi = () => {
@@ -740,6 +813,27 @@
       if (syncStatusApi) syncStatusApi.textContent = payload.endpoints.mt5StatusApi;
       if (syncWebhook) syncWebhook.textContent = payload.endpoints.mt5SyncWebhook;
       if (syncLocalState) syncLocalState.textContent = state;
+    };
+
+    const buildLaunchReport = () => ({
+      ok: true,
+      primaryDomain: appBase,
+      referral: ref,
+      appUrl: buildAppUrl('/'),
+      mt5Url: buildAppUrl('/mt5'),
+      publicApi: buildPublicApiUrl(),
+      riskGuard: '1% Risiko, 5% Max-DD, 10% Weekly, Stufen 80/80/10',
+      privacy: 'Keine privaten Tokens, keine Premium-Dateien, keine internen Besucherzahlen',
+      updatedLocal: new Date().toLocaleString('de-DE')
+    });
+
+    const updateLaunchCenter = () => {
+      const report = buildLaunchReport();
+      if (primaryDomainBox) primaryDomainBox.textContent = report.primaryDomain;
+      if (launchAppBox) launchAppBox.textContent = report.appUrl;
+      if (launchMt5Box) launchMt5Box.textContent = report.mt5Url;
+      if (launchApiBox) launchApiBox.textContent = report.publicApi;
+      if (launchReport) launchReport.textContent = JSON.stringify(report, null, 2);
     };
 
     const updateLotCalculator = () => {
@@ -835,6 +929,32 @@
       });
     }
 
+    if (copyLaunchLinksButton) {
+      copyLaunchLinksButton.addEventListener('click', async () => {
+        const report = buildLaunchReport();
+        const value = [
+          'TradeIQ Pro Live-Zentrale',
+          'Hauptdomain: ' + report.primaryDomain,
+          'App: ' + report.appUrl,
+          'MT5: ' + report.mt5Url,
+          'API: ' + report.publicApi
+        ].join('\n');
+        try {
+          await navigator.clipboard.writeText(value);
+          showToast('Zentrale Links kopiert.');
+        } catch {
+          showToast('Links stehen in der Zentrale.');
+        }
+      });
+    }
+
+    if (refreshLaunchReportButton) {
+      refreshLaunchReportButton.addEventListener('click', () => {
+        updateLaunchCenter();
+        showToast('Zentrale aktualisiert.');
+      });
+    }
+
     if (copyApiButton) {
       copyApiButton.addEventListener('click', async () => {
         const value = buildPublicApiPayload().endpoints.publicSiteApi;
@@ -916,6 +1036,7 @@
     updateReferralUi();
     updateLotCalculator();
     updateMt5OpsUi();
+    updateLaunchCenter();
 
     if (visitorHint) {
       visitorHint.textContent = visitCount > 1 ? 'Willkommen zurueck - App direkt oeffnen.' : 'Oeffentliche Seite ohne interne Zahlen.';
