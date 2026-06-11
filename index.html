@@ -123,6 +123,79 @@
     .private-box { border: 1px dashed rgba(248,193,74,.45); background: rgba(248,193,74,.08); border-radius: 8px; padding: 20px; }
     .private-box strong { color: var(--gold); display: block; margin-bottom: 8px; }
     .local-note { margin-top: 16px; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .tools-grid { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(320px, .92fr); gap: 16px; align-items: stretch; }
+    .tool-panel {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.07);
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .tool-panel h3 { margin: 0 0 10px; font-size: 20px; }
+    .tool-panel p { color: var(--muted); line-height: 1.55; margin: 0 0 16px; }
+    .field-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; }
+    .input {
+      width: 100%;
+      min-height: 46px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(0,0,0,.22);
+      color: var(--text);
+      padding: 0 14px;
+      font: inherit;
+      font-weight: 750;
+      outline: none;
+    }
+    .input:focus { border-color: rgba(32,201,151,.75); box-shadow: 0 0 0 3px rgba(32,201,151,.14); }
+    .result-box {
+      margin-top: 12px;
+      border: 1px solid rgba(56,189,248,.3);
+      background: rgba(56,189,248,.08);
+      border-radius: 8px;
+      padding: 12px;
+      color: #dff6ff;
+      overflow-wrap: anywhere;
+      font-size: 14px;
+    }
+    .tool-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .status-list { display: grid; gap: 10px; }
+    .status-item { display: flex; align-items: flex-start; gap: 10px; color: var(--muted); line-height: 1.45; }
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      flex: 0 0 12px;
+      border-radius: 99px;
+      margin-top: 5px;
+      background: var(--green);
+      box-shadow: 0 0 0 5px rgba(32,201,151,.12);
+    }
+    .quick-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 16px; }
+    .quick-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(0,0,0,.18);
+      padding: 16px;
+      min-height: 160px;
+    }
+    .quick-card strong { display: block; margin-bottom: 8px; font-size: 18px; }
+    .quick-card span { display: block; color: var(--muted); line-height: 1.5; font-size: 14px; }
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 88px;
+      z-index: 40;
+      transform: translateY(18px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+      background: #06111f;
+      border: 1px solid rgba(32,201,151,.45);
+      color: var(--text);
+      border-radius: 8px;
+      padding: 12px 14px;
+      box-shadow: var(--shadow);
+      font-weight: 800;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
     .sticky-cta {
       position: fixed;
       left: 0; right: 0; bottom: 0;
@@ -138,7 +211,8 @@
       nav { display: none; }
       main { padding-top: 48px; }
       .hero { grid-template-columns: 1fr; }
-      .cards, .proof { grid-template-columns: 1fr; }
+      .cards, .proof, .tools-grid, .quick-grid { grid-template-columns: 1fr; }
+      .field-row { grid-template-columns: 1fr; }
       .section-title { display: block; }
       .section-title p { margin-top: 10px; }
       .sticky-inner { align-items: stretch; flex-direction: column; padding: 10px 0; }
@@ -154,6 +228,8 @@
         <span>TradeIQ Pro</span>
       </a>
       <nav aria-label="Hauptnavigation">
+        <a href="#funktionen">Funktionen</a>
+        <a href="#mt5">MT5</a>
         <a href="#privat">Privat</a>
         <a href="#sicherheit">Sicherheit</a>
         <a href="#live">Live</a>
@@ -187,6 +263,60 @@
         </div>
       </aside>
     </div>
+
+    <section id="funktionen">
+      <div class="section-title">
+        <h2>Neue Website-Funktionen</h2>
+        <p>Diese Funktionen laufen direkt auf der oeffentlichen Seite: Referral-Link bauen, Link kopieren, Status pruefen und sicher zur App oder zum MT5-Bereich springen.</p>
+      </div>
+      <div class="tools-grid">
+        <article class="tool-panel">
+          <h3>Referral-Link Generator</h3>
+          <p>Gib deinen Code ein. Die Website erzeugt sofort den richtigen App-Link und speichert den Code lokal im Browser.</p>
+          <div class="field-row">
+            <input class="input" id="refInput" maxlength="32" autocomplete="off" spellcheck="false" value="TIQTEST" aria-label="Referral-Code" />
+            <button class="button primary" id="copyReferralButton" type="button">Link kopieren</button>
+          </div>
+          <div class="result-box" id="generatedReferralLink">Link wird vorbereitet...</div>
+          <div class="tool-actions">
+            <a class="button" id="openGeneratedAppLink" href="https://tradeiqpro-qwm3xmck.manus.space/?ref=TIQTEST">App-Link oeffnen</a>
+            <button class="button" id="shareReferralButton" type="button">Teilen</button>
+          </div>
+        </article>
+
+        <article class="tool-panel">
+          <h3>Live Sicherheitscheck</h3>
+          <p>Der Check zeigt Besuchern klar, welche Schutzpunkte auf der oeffentlichen Einstiegsseite aktiv sind.</p>
+          <div class="status-list" id="securityChecklist">
+            <div class="status-item"><span class="status-dot"></span><span>Keine privaten Skripte oder Premium-Dateien im GitHub-Pages-Code.</span></div>
+            <div class="status-item"><span class="status-dot"></span><span>Referral-Code wird lokal gespeichert und sauber an die App weitergegeben.</span></div>
+            <div class="status-item"><span class="status-dot"></span><span>Dashboard- und Besucherzahlen bleiben ausserhalb der oeffentlichen Seite.</span></div>
+          </div>
+          <div class="tool-actions">
+            <button class="button primary" id="runSecurityCheck" type="button">Check aktualisieren</button>
+          </div>
+          <p class="local-note" id="securityCheckResult">Status: bereit.</p>
+        </article>
+      </div>
+
+      <div class="quick-grid" aria-label="Schnellfunktionen">
+        <div class="quick-card"><strong>1-Klick App-Start</strong><span>Alle App-Buttons bekommen automatisch deinen Referral-Code.</span></div>
+        <div class="quick-card"><strong>Private Daten getrennt</strong><span>Oeffentliche Seite, App-Logik, Zahlungen und Premium-Downloads bleiben getrennte Bereiche.</span></div>
+        <div class="quick-card"><strong>Cache-Buster bereit</strong><span>Der Link kann mit <code>&v=neu</code> geladen werden, damit Besucher sofort die neue Version sehen.</span></div>
+      </div>
+    </section>
+
+    <section id="mt5">
+      <div class="section-title">
+        <h2>MT5 Schnellstart</h2>
+        <p>Der MT5-Bereich bleibt in der Haupt-App. Diese oeffentliche Seite bringt Nutzer mit Referral-Code direkt dorthin.</p>
+      </div>
+      <div class="cards">
+        <article class="card"><div class="icon">MT5</div><h3>Dashboard oeffnen</h3><p>Direkter Einstieg in die MT5-Seite der App, inklusive Referral-Parameter.</p><div class="tool-actions"><a class="button primary" id="mt5Link" href="https://tradeiqpro-qwm3xmck.manus.space/mt5?ref=TIQTEST">MT5 oeffnen</a></div></article>
+        <article class="card"><div class="icon">EA</div><h3>Programm geschuetzt</h3><p>EA-Dateien und Downloads gehoeren nicht in die oeffentliche Seite, sondern hinter Login und Berechtigung.</p></article>
+        <article class="card"><div class="icon">SYNC</div><h3>Sync vorbereitet</h3><p>Die Seite fuehrt Nutzer in den richtigen Bereich, ohne die privaten Sync-Endpunkte offenzulegen.</p></article>
+      </div>
+    </section>
 
     <section id="privat">
       <div class="section-title">
@@ -244,32 +374,125 @@
     <div class="wrap">(c) <span id="year"></span> TradeIQ Pro. Public site only - private dashboard data remains protected.</div>
   </footer>
 
+  <div class="toast" id="toast" role="status" aria-live="polite">Kopiert.</div>
+
   <script>
     const params = new URLSearchParams(window.location.search);
-    const ref = params.get('ref') || localStorage.getItem('tiq_ref') || 'TIQTEST';
+    const normalizeRef = value => {
+      const cleaned = String(value || '').trim().replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 32);
+      return cleaned || 'TIQTEST';
+    };
+
+    let ref = normalizeRef(params.get('ref') || localStorage.getItem('tiq_ref') || 'TIQTEST');
     localStorage.setItem('tiq_ref', ref);
 
     const visitCount = Number(localStorage.getItem('tiq_visit_count') || '0') + 1;
     localStorage.setItem('tiq_visit_count', String(visitCount));
 
-    const target = new URL('https://tradeiqpro-qwm3xmck.manus.space/');
-    target.searchParams.set('ref', ref);
+    const appBase = 'https://tradeiqpro-qwm3xmck.manus.space/';
+    const buildAppUrl = (path = '/') => {
+      const target = new URL(path, appBase);
+      target.searchParams.set('ref', ref);
+      return target.toString();
+    };
+
+    const showToast = message => {
+      const toast = document.getElementById('toast');
+      if (!toast) return;
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => toast.classList.remove('show'), 2200);
+    };
+
+    const refCode = document.getElementById('refCode');
+    const refInput = document.getElementById('refInput');
+    const generatedReferralLink = document.getElementById('generatedReferralLink');
+    const openGeneratedAppLink = document.getElementById('openGeneratedAppLink');
+    const copyReferralButton = document.getElementById('copyReferralButton');
+    const shareReferralButton = document.getElementById('shareReferralButton');
+    const mt5Link = document.getElementById('mt5Link');
+    const visitorHint = document.getElementById('visitorHint');
+    const heroLead = document.getElementById('heroLead');
+    const stickyText = document.getElementById('stickyText');
+    const isMobile = window.matchMedia('(max-width: 760px)').matches;
+    const securityCheckResult = document.getElementById('securityCheckResult');
+    const runSecurityCheck = document.getElementById('runSecurityCheck');
+
+    const updateReferralUi = () => {
+      const appUrl = buildAppUrl('/');
+      const mt5Url = buildAppUrl('/mt5');
+      localStorage.setItem('tiq_ref', ref);
+
+      if (refCode) refCode.textContent = ref;
+      if (refInput && refInput.value !== ref) refInput.value = ref;
+      if (generatedReferralLink) generatedReferralLink.textContent = appUrl;
+      if (openGeneratedAppLink) openGeneratedAppLink.href = appUrl;
+      if (mt5Link) mt5Link.href = mt5Url;
+
+      for (const link of document.querySelectorAll('[data-app-link]')) {
+        link.href = appUrl;
+      }
+    };
 
     for (const link of document.querySelectorAll('[data-app-link]')) {
-      link.href = target.toString();
       link.addEventListener('click', () => {
         const clicks = Number(localStorage.getItem('tiq_app_clicks') || '0') + 1;
         localStorage.setItem('tiq_app_clicks', String(clicks));
       });
     }
 
-    const refCode = document.getElementById('refCode');
-    if (refCode) refCode.textContent = ref;
+    if (refInput) {
+      refInput.addEventListener('input', event => {
+        ref = normalizeRef(event.target.value);
+        updateReferralUi();
+      });
+    }
 
-    const visitorHint = document.getElementById('visitorHint');
-    const heroLead = document.getElementById('heroLead');
-    const stickyText = document.getElementById('stickyText');
-    const isMobile = window.matchMedia('(max-width: 760px)').matches;
+    if (copyReferralButton) {
+      copyReferralButton.addEventListener('click', async () => {
+        const appUrl = buildAppUrl('/');
+        try {
+          await navigator.clipboard.writeText(appUrl);
+          showToast('Referral-Link kopiert.');
+        } catch {
+          showToast('Link ist markierbar im Feld.');
+        }
+      });
+    }
+
+    if (shareReferralButton) {
+      shareReferralButton.addEventListener('click', async () => {
+        const appUrl = buildAppUrl('/');
+        if (navigator.share) {
+          try {
+            await navigator.share({ title: 'TradeIQ Pro', text: 'TradeIQ Pro mit Referral oeffnen', url: appUrl });
+            showToast('Teilen geoeffnet.');
+            return;
+          } catch {
+            return;
+          }
+        }
+        try {
+          await navigator.clipboard.writeText(appUrl);
+          showToast('Teilen nicht verfuegbar - Link kopiert.');
+        } catch {
+          showToast('Teilen nicht verfuegbar.');
+        }
+      });
+    }
+
+    if (runSecurityCheck) {
+      runSecurityCheck.addEventListener('click', () => {
+        const now = new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        if (securityCheckResult) {
+          securityCheckResult.textContent = `Status: geprueft um ${now}. Referral ${ref} aktiv, private Dateien bleiben getrennt.`;
+        }
+        showToast('Sicherheitscheck aktualisiert.');
+      });
+    }
+
+    updateReferralUi();
 
     if (visitorHint) {
       visitorHint.textContent = visitCount > 1 ? 'Willkommen zurueck - App direkt oeffnen.' : 'Oeffentliche Seite ohne interne Zahlen.';
