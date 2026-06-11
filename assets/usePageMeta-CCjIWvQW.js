@@ -1,0 +1,1 @@
+import{r as n}from"./index-BoPaK_nI.js";function m(a,t){n.useEffect(()=>{if(document.title=a,t){let e=document.querySelector('meta[name="description"]');e||(e=document.createElement("meta"),e.name="description",document.head.appendChild(e)),e.content=t}return()=>{document.title="TradeIQ Pro – KI Trading Signale & Risk Manager"}},[a,t])}export{m as u};

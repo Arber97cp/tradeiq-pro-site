@@ -1,0 +1,102 @@
+﻿{
+    "id":  "/tradeiq-pro-site/?app=tradeiq-pro",
+    "name":  "TradeIQ Pro",
+    "short_name":  "TradeIQ",
+    "description":  "AI trading signals, FTMO risk controls, market intelligence and secure capital tools for disciplined traders.",
+    "start_url":  "/tradeiq-pro-site/?utm_source=pwa",
+    "scope":  "/tradeiq-pro-site/",
+    "display":  "standalone",
+    "display_override":  [
+                             "window-controls-overlay",
+                             "standalone",
+                             "browser"
+                         ],
+    "background_color":  "#070707",
+    "theme_color":  "#d4af37",
+    "orientation":  "any",
+    "categories":  [
+                       "finance",
+                       "business",
+                       "education",
+                       "productivity"
+                   ],
+    "lang":  "de",
+    "dir":  "ltr",
+    "prefer_related_applications":  false,
+    "launch_handler":  {
+                           "client_mode":  "navigate-existing"
+                       },
+    "icons":  [
+                  {
+                      "src":  "/tradeiq-pro-site/icons/icon-192.png",
+                      "sizes":  "192x192",
+                      "type":  "image/png",
+                      "purpose":  "any"
+                  },
+                  {
+                      "src":  "/tradeiq-pro-site/icons/icon-512.png",
+                      "sizes":  "512x512",
+                      "type":  "image/png",
+                      "purpose":  "any"
+                  },
+                  {
+                      "src":  "/tradeiq-pro-site/icons/maskable-512.png",
+                      "sizes":  "512x512",
+                      "type":  "image/png",
+                      "purpose":  "maskable"
+                  },
+                  {
+                      "src":  "/tradeiq-pro-site/icons/tradeiq-icon.svg",
+                      "sizes":  "any",
+                      "type":  "image/svg+xml",
+                      "purpose":  "any"
+                  }
+              ],
+    "screenshots":  [
+                        {
+                            "src":  "https://d2xsxph8kpxj0f.cloudfront.net/310519663690030430/QWm3XMck8Qq2xAbvK8xauJ/og-image-J3ogTCy2TCkWcBhHutK7g7.png",
+                            "sizes":  "2560x1440",
+                            "type":  "image/png",
+                            "form_factor":  "wide",
+                            "label":  "TradeIQ Pro dashboard and trading tools"
+                        }
+                    ],
+    "shortcuts":  [
+                      {
+                          "name":  "3D Weltkarte",
+                          "short_name":  "Weltkarte",
+                          "description":  "Wirtschaftliche 3D-Weltkarte oeffnen",
+                          "url":  "/tradeiq-pro-site/weltkarte?utm_source=pwa_shortcut",
+                          "icons":  [
+                                        {
+                                            "src":  "/tradeiq-pro-site/icons/icon-192.png",
+                                            "sizes":  "192x192"
+                                        }
+                                    ]
+                      },
+                      {
+                          "name":  "Wirtschaftskalender",
+                          "short_name":  "Kalender",
+                          "description":  "Wichtige Markttermine anzeigen",
+                          "url":  "/tradeiq-pro-site/kalender?utm_source=pwa_shortcut",
+                          "icons":  [
+                                        {
+                                            "src":  "/tradeiq-pro-site/icons/icon-192.png",
+                                            "sizes":  "192x192"
+                                        }
+                                    ]
+                      },
+                      {
+                          "name":  "Konto-Dashboard",
+                          "short_name":  "Dashboard",
+                          "description":  "Trading- und Referral-Dashboard oeffnen",
+                          "url":  "/tradeiq-pro-site/dashboard?utm_source=pwa_shortcut",
+                          "icons":  [
+                                        {
+                                            "src":  "/tradeiq-pro-site/icons/icon-192.png",
+                                            "sizes":  "192x192"
+                                        }
+                                    ]
+                      }
+                  ]
+}

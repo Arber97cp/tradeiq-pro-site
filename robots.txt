@@ -1,0 +1,10 @@
+﻿User-agent: *
+Allow: /
+
+# Kein Crawling von Admin- und API-Bereichen
+Disallow: /admin
+Disallow: /api/
+Disallow: /dashboard
+
+# Sitemap
+Sitemap: https://arber97cp.github.io/tradeiq-pro-site/sitemap.xml
