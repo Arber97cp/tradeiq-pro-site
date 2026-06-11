@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TradeIQ Pro - Sichere Einstiegsseite</title>
-  <meta name="description" content="TradeIQ Pro fuehrt Besucher sicher und schnell zur App, ohne private Dashboard- oder Besucherzahlen oeffentlich anzuzeigen." />
+  <title>TradeIQ Pro - Unabhaengige Live-Seite</title>
+  <meta name="description" content="TradeIQ Pro fuehrt Besucher ueber eine unabhaengige GitHub-Pages-Live-Seite sicher zur App, ohne private Skripte, Dashboard-Daten oder Besucherzahlen oeffentlich anzuzeigen." />
   <meta name="theme-color" content="#0f172a" />
   <meta name="robots" content="index,follow" />
   <link rel="preconnect" href="https://tradeiqpro-qwm3xmck.manus.space" />
@@ -153,23 +153,23 @@
   <main id="top" class="wrap">
     <div class="hero">
       <div>
-        <div class="eyebrow">Besucherzahlen privat gehalten</div>
+        <div class="eyebrow">Unabhaengige Live-Seite aktiv</div>
         <h1>TradeIQ Pro</h1>
-        <p class="lead" id="heroLead">Schneller Einstieg, klarer Sicherheitsrahmen und Referral-Tracking: Besucher kommen ohne Umwege in die App, waehrend interne Dashboard-Daten nur dir gehoeren.</p>
+        <p class="lead" id="heroLead">Sicherer Ausweich-Eingang ohne Manus-Sync: Besucher kommen mit Referral-Code zur App, waehrend private Skripte, Premium-Dateien und Dashboard-Daten nicht oeffentlich ausgeliefert werden.</p>
         <div class="hero-actions">
           <a class="button primary" id="heroAppLink" data-app-link href="https://tradeiqpro-qwm3xmck.manus.space/?ref=TIQTEST">App mit Referral oeffnen</a>
-          <a class="button" href="#privat">Privatsphaere ansehen</a>
+          <a class="button" href="#sicherheit">Sicherheit ansehen</a>
         </div>
-        <p class="refline">Aktiver Referral-Code: <code id="refCode">TIQTEST</code> · <span id="visitorHint">Oeffentliche Seite ohne interne Zahlen.</span></p>
+        <p class="refline">Aktiver Referral-Code: <code id="refCode">TIQTEST</code> - <span id="visitorHint">Oeffentliche Seite ohne interne Zahlen.</span></p>
       </div>
       <aside class="panel" aria-label="Private Besucher-Daten">
         <div class="panel-top">
-          <h2>Dashboard privat</h2>
-          <span class="badge">Geschuetzt</span>
+          <h2>Ausweich-Live aktiv</h2>
+          <span class="badge">GitHub Pages</span>
         </div>
         <div class="metric-grid">
-          <div class="metric"><strong>Keine Zahlen oeffentlich</strong><span>Manus-Besucherwerte werden nicht mehr auf der GitHub-Seite angezeigt.</span></div>
-          <div class="metric"><strong>CTA bleibt sichtbar</strong><span>Die Seite bleibt fuer Besucher optimiert, ohne interne Kennzahlen preiszugeben.</span></div>
+          <div class="metric"><strong>Keine privaten Skripte</strong><span>Der oeffentliche Eingang enthaelt nur die Landing-Seite und keine Premium-Programmdateien.</span></div>
+          <div class="metric"><strong>Referral bleibt aktiv</strong><span>Der Empfehlungs-Code wird gespeichert und beim Wechsel in die App weitergegeben.</span></div>
           <div class="metric"><strong id="localLoad">Ladezeit misst...</strong><span>Nur lokale Browser-Messung auf deinem eigenen Geraet.</span></div>
         </div>
       </aside>
@@ -214,7 +214,7 @@
     <section id="live">
       <div class="section-title">
         <h2>Live-App starten</h2>
-        <p>Die GitHub-Seite fuehrt Besucher in die Manus-App. Der Referral-Code bleibt erhalten, ohne dass interne Dashboard-Daten oeffentlich sichtbar sind.</p>
+        <p>Diese GitHub-Pages-Seite bleibt als unabhaengiger Live-Eingang erreichbar, auch wenn Manus-Sync oder Sandbox-Credits gerade blockieren. Der Referral-Code bleibt erhalten, ohne dass interne Dashboard-Daten oeffentlich sichtbar sind.</p>
       </div>
       <a class="button primary" id="bottomAppLink" data-app-link href="https://tradeiqpro-qwm3xmck.manus.space/?ref=TIQTEST">Jetzt TradeIQ Pro oeffnen</a>
     </section>
@@ -228,7 +228,7 @@
   </div>
 
   <footer>
-    <div class="wrap">© <span id="year"></span> TradeIQ Pro. Public site only - private dashboard data remains protected.</div>
+    <div class="wrap">(c) <span id="year"></span> TradeIQ Pro. Public site only - private dashboard data remains protected.</div>
   </footer>
 
   <script>
@@ -262,7 +262,7 @@
       visitorHint.textContent = visitCount > 1 ? 'Willkommen zurueck - App direkt oeffnen.' : 'Oeffentliche Seite ohne interne Zahlen.';
     }
     if (heroLead && visitCount > 1) {
-      heroLead.textContent = 'Willkommen zurueck. Dein Referral ist gespeichert, interne Dashboard-Daten bleiben privat.';
+      heroLead.textContent = 'Willkommen zurueck. Dein Referral ist gespeichert; der oeffentliche Eingang bleibt von privaten Skripten und Dashboard-Daten getrennt.';
     }
     if (stickyText && isMobile) {
       stickyText.textContent = 'Mobil erkannt: App-Start bleibt unten erreichbar.';
