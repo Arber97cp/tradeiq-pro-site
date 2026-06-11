@@ -6,11 +6,7 @@ This repository is intentionally separate from the private application source co
 
 Pages URL:
 
-Primary app domain:
-
-https://3000-i6iprv7nz2cqeep7t23ny-ab6b65e0.us2.manus.computer/?ref=TIQTEST
-
-GitHub Pages mirror:
+GitHub Pages main URL:
 
 https://arber97cp.github.io/tradeiq-pro-site/?ref=TIQTEST
 
