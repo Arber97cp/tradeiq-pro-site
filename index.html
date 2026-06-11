@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TradeIQ Pro - Sichere Trading-Plattform</title>
+  <meta name="description" content="TradeIQ Pro verbindet Trading-Tools, Referral-Tracking und geschuetzte Premium-Downloads in einer sicheren Plattform." />
+  <meta name="theme-color" content="#0f172a" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #07111f;
+      --panel: rgba(255,255,255,.08);
+      --panel-strong: rgba(255,255,255,.13);
+      --text: #f8fafc;
+      --muted: #b8c3d6;
+      --line: rgba(255,255,255,.16);
+      --green: #20c997;
+      --blue: #38bdf8;
+      --gold: #f8c14a;
+      --red: #fb7185;
+      --shadow: 0 24px 70px rgba(0,0,0,.42);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,.22), transparent 34rem),
+        radial-gradient(circle at bottom right, rgba(32,201,151,.18), transparent 34rem),
+        linear-gradient(145deg, #07111f 0%, #0f172a 50%, #111827 100%);
+      color: var(--text);
+    }
+    a { color: inherit; }
+    .wrap { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(7,17,31,.78);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; min-height: 72px; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: 0; text-decoration: none; }
+    .mark {
+      width: 38px; height: 38px; border-radius: 10px;
+      display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      color: #06111f; font-weight: 950;
+      box-shadow: 0 12px 30px rgba(32,201,151,.22);
+    }
+    nav { display: flex; align-items: center; gap: 16px; color: var(--muted); font-size: 14px; }
+    nav a { text-decoration: none; }
+    nav a:hover { color: var(--text); }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 750;
+      box-shadow: none;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+    .button:hover { transform: translateY(-1px); background: rgba(255,255,255,.13); border-color: rgba(255,255,255,.3); }
+    .button.primary { background: linear-gradient(135deg, var(--green), var(--blue)); border: 0; color: #04111e; }
+    main { padding: 82px 0 56px; }
+    .hero { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(320px, .92fr); gap: 36px; align-items: center; }
+    .eyebrow { color: var(--green); font-weight: 850; text-transform: uppercase; font-size: 13px; letter-spacing: .08em; }
+    h1 { margin: 14px 0 18px; font-size: clamp(42px, 7vw, 76px); line-height: .94; letter-spacing: 0; }
+    .lead { color: var(--muted); font-size: clamp(18px, 2.2vw, 22px); line-height: 1.6; max-width: 680px; margin: 0; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .refline { margin-top: 18px; color: #d6deea; font-size: 14px; }
+    .refline code { color: var(--gold); }
+    .status-panel {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+      border-radius: 8px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+    .status-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+    .status-top h2 { margin: 0; font-size: 20px; }
+    .badge { color: #052016; background: var(--green); border-radius: 999px; padding: 6px 10px; font-size: 12px; font-weight: 900; }
+    .metric-grid { display: grid; gap: 12px; }
+    .metric { border: 1px solid var(--line); background: rgba(0,0,0,.16); border-radius: 8px; padding: 15px; }
+    .metric strong { display: block; font-size: 22px; margin-bottom: 4px; }
+    .metric span { color: var(--muted); font-size: 14px; }
+    section { padding: 60px 0 0; }
+    .section-title { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 18px; }
+    .section-title h2 { margin: 0; font-size: clamp(28px, 4vw, 42px); letter-spacing: 0; }
+    .section-title p { margin: 0; color: var(--muted); max-width: 560px; line-height: 1.55; }
+    .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .card { border: 1px solid var(--line); background: var(--panel); border-radius: 8px; padding: 20px; min-height: 180px; }
+    .card h3 { margin: 0 0 10px; font-size: 18px; }
+    .card p { margin: 0; color: var(--muted); line-height: 1.55; }
+    .icon { width: 38px; height: 38px; border-radius: 8px; display: grid; place-items: center; margin-bottom: 14px; background: var(--panel-strong); border: 1px solid var(--line); }
+    .proof { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .proof div { border-top: 2px solid var(--green); padding: 14px 0; color: var(--muted); }
+    .proof strong { color: var(--text); display: block; font-size: 24px; margin-bottom: 4px; }
+    footer { padding: 48px 0; color: var(--muted); border-top: 1px solid var(--line); margin-top: 64px; }
+    @media (max-width: 860px) {
+      nav { display: none; }
+      main { padding-top: 54px; }
+      .hero { grid-template-columns: 1fr; }
+      .cards, .proof { grid-template-columns: 1fr; }
+      .section-title { display: block; }
+      .section-title p { margin-top: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="TradeIQ Pro Startseite">
+        <span class="mark">TIQ</span>
+        <span>TradeIQ Pro</span>
+      </a>
+      <nav aria-label="Hauptnavigation">
+        <a href="#sicherheit">Sicherheit</a>
+        <a href="#system">System</a>
+        <a href="#live">Live</a>
+        <a class="button" id="navAppLink" href="https://tradeiqpro-qwm3xmck.manus.space/?ref=TIQTEST">App starten</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="wrap">
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Referral aktiv · Premium geschuetzt · Live bereit</div>
+        <h1>TradeIQ Pro</h1>
+        <p class="lead">Eine professionelle Trading-Plattform mit Referral-Tracking, geschuetzten Premium-Downloads und klarer Sicherheitskommunikation fuer Nutzer, Partner und Investoren.</p>
+        <div class="hero-actions">
+          <a class="button primary" id="heroAppLink" href="https://tradeiqpro-qwm3xmck.manus.space/?ref=TIQTEST">App mit Referral oeffnen</a>
+          <a class="button" href="#sicherheit">Sicherheit ansehen</a>
+        </div>
+        <p class="refline">Aktiver Referral-Code: <code id="refCode">TIQTEST</code></p>
+      </div>
+      <aside class="status-panel" aria-label="Live Status">
+        <div class="status-top">
+          <h2>Live-Status</h2>
+          <span class="badge">Bereit</span>
+        </div>
+        <div class="metric-grid">
+          <div class="metric"><strong>Serverseitig</strong><span>Premium-Skripte werden nicht als freie Website-Dateien ausgeliefert.</span></div>
+          <div class="metric"><strong>Referral</strong><span>Der ref-Parameter bleibt beim App-Start erhalten.</span></div>
+          <div class="metric"><strong>GitHub Pages</strong><span>Diese Site ist als oeffentliche Marketing- und Einstiegsseite vorbereitet.</span></div>
+        </div>
+      </aside>
+    </div>
+
+    <section id="sicherheit">
+      <div class="section-title">
+        <h2>Sicherheitsvertrauen fuer Nutzer</h2>
+        <p>Die Seite kommuniziert klar, welche Schutzmassnahmen aktiv sind, ohne private Serverlogik oder zahlungspflichtige Inhalte offenzulegen.</p>
+      </div>
+      <div class="cards">
+        <article class="card"><div class="icon">✓</div><h3>Premium erst nach Freigabe</h3><p>Downloads und Programmdateien gehoeren auf den Server und werden nur nach Anmeldung und aktiver Berechtigung bereitgestellt.</p></article>
+        <article class="card"><div class="icon">#</div><h3>Referral bleibt verbunden</h3><p>Besucher mit Empfehlungslink behalten ihren Code beim Wechsel in die App, damit Tracking und Zuordnung funktionieren.</p></article>
+        <article class="card"><div class="icon">!</div><h3>Keine falschen Versprechen</h3><p>Sicherheit wird professionell dargestellt: stark, nachvollziehbar und glaubwuerdig statt uebertrieben oder rechtlich riskant.</p></article>
+      </div>
+    </section>
+
+    <section id="system">
+      <div class="section-title">
+        <h2>Was diese Site macht</h2>
+        <p>Diese oeffentliche Site ist der sichere Eingang. Die eigentliche App, Zahlungen, Premium-Bereiche und Serverfunktionen bleiben im Hauptsystem.</p>
+      </div>
+      <div class="proof">
+        <div><strong>1</strong>Oeffentliche Startseite</div>
+        <div><strong>2</strong>Referral-Weitergabe</div>
+        <div><strong>3</strong>Sicherheitsbotschaft</div>
+        <div><strong>4</strong>App-Start per CTA</div>
+      </div>
+    </section>
+
+    <section id="live">
+      <div class="section-title">
+        <h2>Live gehen</h2>
+        <p>Sobald GitHub Pages fuer dieses Repo aktiv ist, ist diese Seite unter der GitHub-Pages-Adresse erreichbar. Dein privates Hauptprojekt bleibt davon getrennt.</p>
+      </div>
+      <a class="button primary" id="bottomAppLink" href="https://tradeiqpro-qwm3xmck.manus.space/?ref=TIQTEST">Jetzt TradeIQ Pro oeffnen</a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">© <span id="year"></span> TradeIQ Pro. Public site only - private application logic remains protected.</div>
+  </footer>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const ref = params.get('ref') || 'TIQTEST';
+    const target = new URL('https://tradeiqpro-qwm3xmck.manus.space/');
+    target.searchParams.set('ref', ref);
+    for (const id of ['navAppLink', 'heroAppLink', 'bottomAppLink']) {
+      const link = document.getElementById(id);
+      if (link) link.href = target.toString();
+    }
+    const refCode = document.getElementById('refCode');
+    if (refCode) refCode.textContent = ref;
+    const year = document.getElementById('year');
+    if (year) year.textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
